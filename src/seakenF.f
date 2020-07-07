@@ -399,16 +399,15 @@ c      if (x) 10,20,30
       IF (x.lt.0) THEN
 c     Negative argument.
 c
-      if (x.lt.-6.0) go to 40
-      t=-x
-      cdfn=      0.5/(1.0+0.0498673470*t+0.0211410061*t**2
-     1   +0.0032776263*t**3+0.380036e-4*t**4+0.488906e-4*t**5
-     1   +0.53830e-5*t**6)**16
-      return
-   40 continue
-      cdfn=0.0
-      return
-c
+       IF (x.lt.-6.0) THEN cdfn=0.0
+       ELSE 
+       t=-x
+       cdfn=      0.5/(1.0+0.0498673470*t+0.0211410061*t**2
+       1   +0.0032776263*t**3+0.380036e-4*t**4+0.488906e-4*t**5
+       1   +0.53830e-5*t**6)**16
+       return
+       
+c   
 c     Zero argument.
 c
       ELSE IF (x.eq.0) THEN
@@ -418,17 +417,15 @@ c
 c     Positive argument.
 c
       ELSE 
-      if (x.gt.6.0) go to 50
-      cdfn=1.0-0.5/(1.0+0.0498673470*x+0.0211410061*x**2
-     1   +0.0032776263*x**3+0.380036e-4*x**4+0.488906e-4*x**5
-     1   +0.53830e-5*x**6)**16
+       IF (x.gt.6.0) THEN cdfn=1.0
+       ELSE 
+       cdfn=1.0-0.5/(1.0+0.0498673470*x+0.0211410061*x**2
+       1   +0.0032776263*x**3+0.380036e-4*x**4+0.488906e-4*x**5
+       1   +0.53830e-5*x**6)**16
       return
 c
 c     Outside the range +-6 the approximation is useless.
 c
-   50 continue
-      cdfn=1.0
-      return
       END IF 
       end
        
