@@ -396,12 +396,9 @@ c        NBS Handbook of Mathematical Functions, equation 26.2.19
 c
 c     Arithmetic if is deprecated as of Fortran 2018
 c      if (x) 10,20,30
-      if (x.lt.0) go to 10 
-      else go to 20
-c
+      IF (x.lt.0) THEN
 c     Negative argument.
 c
-   10 continue
       if (x.lt.-6.0) go to 40
       t=-x
       cdfn=      0.5/(1.0+0.0498673470*t+0.0211410061*t**2
@@ -411,15 +408,14 @@ c
 c
 c     Zero argument.
 c
-   20 continue
+      ELSE IF (x.eq.0) THEN
       if (x.eq.0)
       cdfn=0.5
-      else go to 30
       return
 c
 c     Positive argument.
 c
-   30 continue
+      ELSE 
       if (x.gt.6.0) go to 50
       cdfn=1.0-0.5/(1.0+0.0498673470*x+0.0211410061*x**2
      1   +0.0032776263*x**3+0.380036e-4*x**4+0.488906e-4*x**5
@@ -435,7 +431,9 @@ c
       cdfn=1.0
       return
       end
-
+      
+      END IF 
+      
       function sgn(x)
 c
 c     Computes the sign of the argument.
