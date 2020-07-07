@@ -397,7 +397,7 @@ c
 c     Arithmetic if is deprecated as of Fortran 2018
 c      if (x) 10,20,30
       if (x.lt.0) go to 10 
-      else if (x.eq.0) go to 20 
+      elseif (x.eq.0) go to 20 
       else go to 30
 c
 c     Negative argument.
