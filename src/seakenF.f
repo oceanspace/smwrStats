@@ -429,8 +429,8 @@ c
    50 continue
       cdfn=1.0
       return
-      end
       END IF 
+      end
        
       
       function sgn(x)
