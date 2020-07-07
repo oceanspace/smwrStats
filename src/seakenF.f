@@ -396,38 +396,25 @@ c        NBS Handbook of Mathematical Functions, equation 26.2.19
 c
 c     Arithmetic if is deprecated as of Fortran 2018
 c      if (x) 10,20,30
-      IF (x.lt.0) THEN
-c     Negative argument.
-c
-       IF (x.lt.-6.0) THEN cdfn=0.0
-       ELSE 
-       t=-x
-       cdfn=      0.5/(1.0+0.0498673470*t+0.0211410061*t**2
-     1   +0.0032776263*t**3+0.380036e-4*t**4+0.488906e-4*t**5
-     1   +0.53830e-5*t**6)**16
-       return
-       END IF 
-c   
-c     Zero argument.
-c
-      ELSE IF (x.eq.0) THEN
-      cdfn=0.5
-      return
-c
-c     Positive argument.
-c
-      ELSE 
-       IF (x.gt.6.0) THEN cdfn=1.0
-       ELSE 
-       cdfn=1.0-0.5/(1.0+0.0498673470*x+0.0211410061*x**2
-     1   +0.0032776263*x**3+0.380036e-4*x**4+0.488906e-4*x**5
-     1   +0.53830e-5*x**6)**16
-       return
-       END IF
-c
-c     Outside the range +-6 the approximation is useless.
-c
-      END IF 
+
+       SELECT CASE(INT(x))
+       CASE (:-6)
+                cdfn=0.0
+                return
+       CASE (-6:0)
+                t=-x
+                cdfn=0.5/(1.0+0.0498673470*t+0.0211410061*t**2+0.0032776263*t**3+0.380036e-4*t**4+0.488906e-4*t**5+0.53830e-5*t**6)**16
+                return
+       CASE (0)
+                cdfn=0.5
+                return
+       CASE (0:6)
+                cdfn=1.0-0.5/(1.0+0.0498673470*x+0.0211410061*x**2+0.0032776263*x**3+0.380036e-4*x**4+0.488906e-4*x**5+0.53830e-5*x**6)**16
+                return
+       CASE (6:)
+                cdfn=1.0
+                return 
+       END SELECT
       end
        
       
