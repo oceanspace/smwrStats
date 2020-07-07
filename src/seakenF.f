@@ -409,7 +409,6 @@ c
 c     Zero argument.
 c
       ELSE IF (x.eq.0) THEN
-      if (x.eq.0)
       cdfn=0.5
       return
 c
