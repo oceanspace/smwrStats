@@ -308,7 +308,7 @@ c
 c
 c         Compute the variance of the test statistic S.
 c
-      nok = (1.0 + sqrt(1.0+8.0*ncomp)) / 2.0       ! Number of actual values.
+      nok = INT((1.0 + sqrt(1.0+8.0*ncomp)) / 2.0)  ! Number of actual values.
       var = nok * (nok-1.0) * (2.0*nok+5.0) / 18.0  ! Simple variance.
       var = var - fixvar                            ! Adjust for ties.
 c
@@ -405,6 +405,9 @@ c
      1   +0.0032776263*t**3+0.380036e-4*t**4+0.488906e-4*t**5
      1   +0.53830e-5*t**6)**16
       return
+   40 continue
+      cdfn=0.0
+      return
 c
 c     Zero argument.
 c
@@ -423,14 +426,12 @@ c
 c
 c     Outside the range +-6 the approximation is useless.
 c
-   40 continue
-      cdfn=0.0
-      return
    50 continue
       cdfn=1.0
       return
+      end
       END IF 
-      end 
+       
       
       function sgn(x)
 c
